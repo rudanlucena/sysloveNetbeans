@@ -16,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @MultipartConfig(
         fileSizeThreshold   = 1024 * 1024 * 1,  // 1 MB
         maxFileSize         = 1024 * 1024 * 10, // 10 MB
-        maxRequestSize      = 1024 * 1024 * 15, // 15 MB
-        location            = "D:/Uploads"
+        maxRequestSize      = 1024 * 1024 * 15 // 15 MB
 )
 public class FrontController extends HttpServlet{
     @Override
@@ -25,8 +24,7 @@ public class FrontController extends HttpServlet{
         PrintWriter out = response.getWriter();
         response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
-        String nome =request.getParameter("nome");
-        out.println("nome"+nome);
+        
         out.println("action"+action);
         
         try{

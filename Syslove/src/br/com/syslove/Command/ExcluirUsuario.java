@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -21,9 +22,11 @@ public class ExcluirUsuario implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter out = response.getWriter();
+        
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("login");
+        
         try {
-            String email = request.getParameter("email");
-
             GerenciadorUsuario gu = new GerenciadorUsuario();
             gu.excluiUsuario(email);
         } catch (PersistenciaException ex) {
