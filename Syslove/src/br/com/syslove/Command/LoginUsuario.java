@@ -3,12 +3,11 @@ package br.com.syslove.Command;
 import br.com.syslove.Exception.PersistenciaException;
 import br.com.syslove.Gerenciador.GerenciadorUsuario;
 import br.com.syslove.Interface.Command;
+import br.com.syslove.Model.Usuario;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,26 +20,28 @@ public class LoginUsuario implements Command{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-               
-        
+        PrintWriter out = response.getWriter();       
+        Usuario usuario = null;
         try {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
         
             GerenciadorUsuario gu = new GerenciadorUsuario();
+            usuario = gu.localizaUsuario(email, senha);
             
-            if(gu.localizaUsuario(email, senha)){
+            
+            if(usuario != null){
                 HttpSession session = request.getSession();
-                session.setAttribute("login", email);
+                session.setAttribute("email", email);
                 session.setAttribute("senha", senha);
-                response.sendRedirect("inicio.html");
-            }
-            else{
-                response.sendRedirect("index.html");
+                session.setAttribute("usuario", usuario);                
+                response.sendRedirect("inicio.jsp");
             }
         } catch (PersistenciaException | SQLException  ex) {
-            Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            out.println(ex.getMessage());
         }
+        if(usuario == null)
+            response.sendRedirect("index.jsp");
         
         
     }

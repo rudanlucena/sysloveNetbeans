@@ -4,7 +4,6 @@ import br.com.syslove.Exception.PersistenciaException;
 import br.com.syslove.Factory.DaoFactory;
 import br.com.syslove.Interface.DaoFactorySysLove;
 import br.com.syslove.Interface.UsuarioDaoSysLove;
-import br.com.syslove.Model.PassaTempo;
 import br.com.syslove.Model.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,11 +44,11 @@ public class GerenciadorUsuario {
         usuarioDao.persiste(novoUsuario);
     }
     
-    public boolean localizaUsuario(String email, String senha) throws PersistenciaException, SQLException{
+    public Usuario localizaUsuario(String email, String senha) throws PersistenciaException, SQLException{
         return usuarioDao.localiza(email, senha);
     }
     
-    public void atualizaUsuario(String email, String senha, String nome, String apelido, String dataNascimento, String cidade, String profissao, String descricao, String status, float peso, float altura, String corCabelo, String fotoPerfil, String sexo, String passaTempo) throws PersistenciaException, SQLException{        
+    public Usuario atualizaUsuario(String email, String senha, String nome, String apelido, String dataNascimento, String cidade, String profissao, String descricao, String status, double peso, double altura, String corCabelo, String fotoPerfil, String sexo, String passaTempo, String identificacao) throws PersistenciaException, SQLException{        
         Usuario novoUsuario = new Usuario();
         novoUsuario.setEmail(email);
         novoUsuario.setSenha(senha);
@@ -66,7 +65,10 @@ public class GerenciadorUsuario {
         novoUsuario.setFotoPerfil(fotoPerfil);
         novoUsuario.setSexo(sexo);
         novoUsuario.setPassaTempo(passaTempo);
-        usuarioDao.atualiza(novoUsuario);
+        if(usuarioDao.atualiza(novoUsuario, identificacao))
+            return novoUsuario;
+        else
+            return null;
     }
     
     public void excluiUsuario(String email) throws SQLException{

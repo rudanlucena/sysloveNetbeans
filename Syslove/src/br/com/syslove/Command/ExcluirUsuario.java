@@ -24,11 +24,13 @@ public class ExcluirUsuario implements Command {
         PrintWriter out = response.getWriter();
         
         HttpSession session = request.getSession();
-        String email = (String) session.getAttribute("login");
+        String email = (String) session.getAttribute("email");
         
         try {
             GerenciadorUsuario gu = new GerenciadorUsuario();
             gu.excluiUsuario(email);
+            session.invalidate();
+            response.sendRedirect("inicio.jsp");
         } catch (PersistenciaException ex) {
             out.println("Erro não foi possivel instanciar o GerenciadorUsuario");
         } catch (SQLException ex) {

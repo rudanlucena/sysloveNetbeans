@@ -22,7 +22,7 @@ public class EncerrarSessaoUsuario implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect("index.html");
+        response.sendRedirect("index.jsp");
     }
     
 }

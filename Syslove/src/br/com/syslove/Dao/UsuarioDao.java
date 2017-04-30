@@ -27,7 +27,7 @@ public class UsuarioDao implements UsuarioDaoSysLove {
     }
 
     @Override
-    public void persiste(Usuario usuario) throws SQLException, SQLException, SQLException, SQLException, SQLException, SQLException {
+    public void persiste(Usuario usuario) throws SQLException{
         
                    
         boolean success = (new File("C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\syslove\\img\\"+usuario.getEmail())).mkdirs();
@@ -61,20 +61,40 @@ public class UsuarioDao implements UsuarioDaoSysLove {
     
 
     @Override
-    public boolean localiza(String email, String senha) throws SQLException {
+    public Usuario localiza(String email, String senha) throws SQLException {
         String sql = "SELECT * FROM usuarios WHERE email = ? and senha = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, email);
         statement.setString(2, senha);
         ResultSet rs = statement.executeQuery();
-        return rs.next();
+        Usuario usuario = null; 
+        while (rs.next()) {
+            usuario = new Usuario();
+            usuario.setSenha(rs.getString("senha"));
+            usuario.setNome(rs.getString("nome"));
+            usuario.setApelido(rs.getString("apelido"));
+            usuario.setDataNascimento(rs.getString("dataNascimento"));
+            usuario.setCidade(rs.getString("cidade"));
+            usuario.setEmail(rs.getString("email"));
+            usuario.setProfissao(rs.getString("profissao"));
+            usuario.setDescricao(rs.getString("descricao"));
+            usuario.setPassaTempo(rs.getString("passaTempo"));
+            usuario.setStatus(rs.getString("status"));
+            usuario.setPeso(rs.getDouble("peso"));
+            usuario.setAltura(rs.getDouble("altura"));
+            usuario.setCorCabelo(rs.getString("corCabelo"));
+            usuario.setFotoPerfil(rs.getString("fotoPerfil"));
+            usuario.setSexo(rs.getString("sexo"));
+        }
+        return usuario;
     }
 
     @Override
-    public boolean atualiza(Usuario usuario) throws SQLException {
+    public boolean atualiza(Usuario usuario, String identificacao) throws SQLException {
+        
         String sql = "UPDATE usuarios SET senha = ?, nome = ?, apelido = ?, dataNascimento = ?,"
-                + "cidade = ?, profissao = ?, descricao = ?, status = ?,peso = ?, altura = ?, corCabelo = ?, fotoPerfil = ?, sexo = ? WHERE email = ?";
+                + "cidade = ?, profissao = ?, descricao = ?, status = ?, peso = ?, altura = ?, corCabelo = ?, fotoPerfil = ?, sexo = ?, email = ? WHERE email = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, usuario.getSenha());
@@ -90,8 +110,9 @@ public class UsuarioDao implements UsuarioDaoSysLove {
         statement.setString(11, usuario.getCorCabelo());
         statement.setString(12, usuario.getFotoPerfil());
         statement.setString(13, usuario.getSexo());
-        statement.setString(24, usuario.getEmail());
-
+        statement.setString(14, usuario.getEmail());
+        statement.setString(15, identificacao);
+        
         return statement.executeUpdate() > 0;
 
     }

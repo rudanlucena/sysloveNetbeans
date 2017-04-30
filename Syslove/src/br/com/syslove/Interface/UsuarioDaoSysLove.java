@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface UsuarioDaoSysLove {
     public void persiste(Usuario usuario) throws SQLException;
-    public boolean localiza(String email, String senha) throws SQLException;
-    public boolean atualiza(Usuario usuario) throws SQLException;
+    public Usuario localiza(String email, String senha) throws SQLException;
+    public boolean atualiza(Usuario usuario, String identificacao) throws SQLException;
     public boolean exclui(Usuario usuario) throws SQLException;
     public List<Usuario> lista() throws SQLException;
 }

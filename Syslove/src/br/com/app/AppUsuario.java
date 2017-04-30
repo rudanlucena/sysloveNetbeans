@@ -24,7 +24,8 @@ public class AppUsuario {
        
        GerenciadorUsuario gu = new GerenciadorUsuario();
         
-       //gu.persisteUsuario("senha", "nome", "apelido", "data", "cidade", "email", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo");
+       //gu.persisteUsuario("email", "senha", "nome", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       gu.atualizaUsuario("emailNovo6", "senha", "nome", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo", "emailNovo");
        //System.out.println(daoU.localiza(u));
        //daoU.atualiza(u);
        //System.out.println(daoU.lista());

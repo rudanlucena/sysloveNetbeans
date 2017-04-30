@@ -45,13 +45,14 @@ public class CadastrarUsuario implements Command {
         } catch (SQLException ex) {
             out.println("Erro não foi possivel cadastrar o usuario" + ex.getMessage());
         }
+        response.sendRedirect("index.jsp");
 
-        Enumeration parameterNames = request.getParameterNames();
+        /*Enumeration parameterNames = request.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String parameterName = parameterNames.nextElement().toString();
             String value = request.getParameter(parameterName);
             out.println(value);
-        }
+        }*/
 
     }
 
