@@ -30,7 +30,7 @@ public class ExcluirUsuario implements Command {
             GerenciadorUsuario gu = new GerenciadorUsuario();
             gu.excluiUsuario(email);
             session.invalidate();
-            response.sendRedirect("inicio.jsp");
+            response.sendRedirect("index.jsp");
         } catch (PersistenciaException ex) {
             out.println("Erro não foi possivel instanciar o GerenciadorUsuario");
         } catch (SQLException ex) {
