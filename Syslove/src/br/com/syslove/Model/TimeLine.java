@@ -6,21 +6,19 @@ public class TimeLine {
     private static int serial = 0;
     private  int id;
     private String usuario;
+    private String email;
     private String imagem;
     private String legenda;
 
-    public TimeLine(String usuario, String imagem, String legenda) {
-        serial++;
-        this.id = serial;
-        this.usuario = usuario;
-        this.imagem = imagem;
-        this.legenda = legenda;
+    public TimeLine(){
     }
 
-    public TimeLine() {}
+    public static int getSerial() {
+        return serial;
+    }
 
-    public String getUsuario() {
-        return usuario;
+    public static void setSerial(int serial) {
+        TimeLine.serial = serial;
     }
 
     public int getId() {
@@ -31,8 +29,20 @@ public class TimeLine {
         this.id = id;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getImagem() {
@@ -53,10 +63,12 @@ public class TimeLine {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.usuario);
-        hash = 89 * hash + Objects.hashCode(this.imagem);
-        hash = 89 * hash + Objects.hashCode(this.legenda);
+        int hash = 7;
+        hash = 31 * hash + this.id;
+        hash = 31 * hash + Objects.hashCode(this.usuario);
+        hash = 31 * hash + Objects.hashCode(this.email);
+        hash = 31 * hash + Objects.hashCode(this.imagem);
+        hash = 31 * hash + Objects.hashCode(this.legenda);
         return hash;
     }
 
@@ -72,7 +84,13 @@ public class TimeLine {
             return false;
         }
         final TimeLine other = (TimeLine) obj;
+        if (this.id != other.id) {
+            return false;
+        }
         if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
             return false;
         }
         if (!Objects.equals(this.imagem, other.imagem)) {
@@ -86,8 +104,7 @@ public class TimeLine {
 
     @Override
     public String toString() {
-        return "TimeLine{" + "usuario=" + usuario + ", imagem=" + imagem + ", legenda=" + legenda + '}';
-    }
-    
+        return "TimeLine{" + "id=" + id + ", usuario=" + usuario + ", email=" + email + ", imagem=" + imagem + ", legenda=" + legenda + '}';
+    }  
     
 }

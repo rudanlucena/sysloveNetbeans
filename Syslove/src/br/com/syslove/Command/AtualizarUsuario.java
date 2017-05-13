@@ -7,9 +7,6 @@ import br.com.syslove.Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,22 +36,21 @@ public class AtualizarUsuario implements Command {
             double peso = Double.parseDouble(request.getParameter("peso"));
             double altura = Double.parseDouble(request.getParameter("altura"));
             String corCabelo = request.getParameter("corCabelo");
-            String fotoPerfil = request.getParameter("fotoPerfil");
             String sexo = request.getParameter("sexo");
             String passaTempo = request.getParameter("passaTempo");
 
             GerenciadorUsuario gu = new GerenciadorUsuario();
-            Usuario usuario = gu.atualizaUsuario(email, senha, nome, apelido, dataNascimento, cidade, profissao, descricao, status, peso, altura, corCabelo, fotoPerfil, sexo, passaTempo, identificacao);
+            Usuario usuario = gu.atualizaUsuario(email, senha, nome, apelido, dataNascimento, cidade, profissao, descricao, status, peso, altura, corCabelo, sexo, passaTempo, identificacao);
             if(usuario!=null){
                 session.setAttribute("email", email);
                 session.setAttribute("senha", senha);
                 session.setAttribute("usuario", usuario);
             }
         }catch (PersistenciaException | SQLException ex) {
-            Logger.getLogger(AtualizarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            out.println(ex.getMessage());
         }
                 
-        response.sendRedirect("inicio.html");
+        response.sendRedirect("inicio.jsp");
 
     }
 

@@ -1,6 +1,7 @@
 package br.com.syslove.Command;
 
 import br.com.syslove.Exception.PersistenciaException;
+import br.com.syslove.Gerenciador.GerenciadorRelacionamento;
 import br.com.syslove.Gerenciador.GerenciadorUsuario;
 import br.com.syslove.Interface.Command;
 import java.io.File;
@@ -42,6 +43,9 @@ public class CadastrarUsuario implements Command {
             
             GerenciadorUsuario gu = new GerenciadorUsuario();
             gu.persisteUsuario(email, senha, nome, apelido, dataNascimento, cidade, profissao, descricao, status, peso, altura, corCabelo, fotoperfil, sexo, passaTempo);
+            
+            GerenciadorRelacionamento gr = new GerenciadorRelacionamento();
+            gr.persisteRelacionamento(email, email, "você");
             
             File dir = new File( request.getServletContext().getRealPath("img/"+email) );// diretório de upload
          

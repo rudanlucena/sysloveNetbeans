@@ -18,6 +18,8 @@ public class AppTimeLineDao {
         FotoGaleria ft = new FotoGaleria("alexa", "imagem.jpg", "topper");
         TimeLineDao DaoTl = new TimeLineDao();
         
+        System.out.println(DaoTl.lista("alexa@gmail.com"));
+        
         //DaoTl.publica(ft);
     }
     

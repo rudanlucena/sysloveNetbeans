@@ -94,7 +94,7 @@ public class UsuarioDao implements UsuarioDaoSysLove {
     public boolean atualiza(Usuario usuario, String identificacao) throws SQLException {
         
         String sql = "UPDATE usuarios SET senha = ?, nome = ?, apelido = ?, dataNascimento = ?,"
-                + "cidade = ?, profissao = ?, descricao = ?, status = ?, peso = ?, altura = ?, corCabelo = ?, fotoPerfil = ?, sexo = ?, email = ? WHERE email = ?";
+                + "cidade = ?, profissao = ?, descricao = ?, status = ?, peso = ?, altura = ?, corCabelo = ?, sexo = ?, email = ? WHERE email = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, usuario.getSenha());
@@ -108,21 +108,31 @@ public class UsuarioDao implements UsuarioDaoSysLove {
         statement.setDouble(9, usuario.getPeso());
         statement.setDouble(10, usuario.getAltura());
         statement.setString(11, usuario.getCorCabelo());
-        statement.setString(12, usuario.getFotoPerfil());
-        statement.setString(13, usuario.getSexo());
-        statement.setString(14, usuario.getEmail());
-        statement.setString(15, identificacao);
+        statement.setString(12, usuario.getSexo());
+        statement.setString(13, usuario.getEmail());
+        statement.setString(14, identificacao);
         
         return statement.executeUpdate() > 0;
 
     }
+    
+    @Override
+    public boolean atualizaFotoPerfil(String email, String imagem)throws SQLException {
+        String sql="UPDATE usuarios SET perfil = ? WHERE email = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, imagem);
+        statement.setString(2, email);
+        
+        return statement.executeUpdate() > 0;
+    }
 
     @Override
-    public boolean exclui(Usuario usuario) throws SQLException {
+    public boolean exclui(String email) throws SQLException {
         String sql = "DELETE FROM usuarios WHERE email = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
-        statement.setString(1, usuario.getEmail());
+        statement.setString(1, email);
         
         return statement.executeUpdate()>0;
     }

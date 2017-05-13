@@ -48,7 +48,7 @@ public class GerenciadorUsuario {
         return usuarioDao.localiza(email, senha);
     }
     
-    public Usuario atualizaUsuario(String email, String senha, String nome, String apelido, String dataNascimento, String cidade, String profissao, String descricao, String status, double peso, double altura, String corCabelo, String fotoPerfil, String sexo, String passaTempo, String identificacao) throws PersistenciaException, SQLException{        
+    public Usuario atualizaUsuario(String email, String senha, String nome, String apelido, String dataNascimento, String cidade, String profissao, String descricao, String status, double peso, double altura, String corCabelo, String sexo, String passaTempo, String identificacao) throws PersistenciaException, SQLException{        
         Usuario novoUsuario = new Usuario();
         novoUsuario.setEmail(email);
         novoUsuario.setSenha(senha);
@@ -62,7 +62,6 @@ public class GerenciadorUsuario {
         novoUsuario.setPeso(peso);
         novoUsuario.setAltura(altura);
         novoUsuario.setCorCabelo(corCabelo);
-        novoUsuario.setFotoPerfil(fotoPerfil);
         novoUsuario.setSexo(sexo);
         novoUsuario.setPassaTempo(passaTempo);
         if(usuarioDao.atualiza(novoUsuario, identificacao))
@@ -71,12 +70,12 @@ public class GerenciadorUsuario {
             return null;
     }
     
-    public void excluiUsuario(String email) throws SQLException{
-        Usuario novoUsuario = new Usuario();
-        
-        novoUsuario.setEmail(email);
-        
-        usuarioDao.exclui(novoUsuario);
+    public void atualizaFotoPerfil(String email, String imagem) throws SQLException {
+        usuarioDao.atualizaFotoPerfil(email, imagem);
+    }
+    
+    public void excluiUsuario(String email) throws SQLException{        
+        usuarioDao.exclui(email);
     }
     
     public List<Usuario> listaUsuario(String email, String nome) throws SQLException{
