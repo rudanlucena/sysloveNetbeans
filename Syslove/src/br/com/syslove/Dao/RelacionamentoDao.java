@@ -79,5 +79,20 @@ public class RelacionamentoDao implements RelacionamentoDaoSysLove {
 
         return relacionamentos;
     }
+    
+    @Override
+    public boolean verificaAmizade(String usuario, String email) throws SQLException {
+        String sql = "SELECT * FROM relacionamentos where (usuario1 = ? and usuario2 = ?) or (usuario1 = ? and usuario2 = ?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        
+        statement.setString(1, usuario);
+        statement.setString(2, email);
+        statement.setString(3, email);
+        statement.setString(4, usuario);
+        
+        ResultSet rs = statement.executeQuery();
+
+        return rs.next();
+    }
 
 }

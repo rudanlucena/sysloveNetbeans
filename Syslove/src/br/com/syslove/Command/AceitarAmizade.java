@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +22,13 @@ public class AceitarAmizade implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         try {
-            String usuario1 = request.getParameter("usuario1");
-            String usuario2 = request.getParameter("usuario2");
-            String tipo = request.getParameter("tipo");
-
+            String destinatario = (String) request.getSession().getAttribute("email");
+            String remetente = request.getParameter("remetente");
+            
             GerenciadorSolicitacaoAmizade gsa = new GerenciadorSolicitacaoAmizade();
-            gsa.aceitaSolicitacaoAmizade(usuario1, usuario2, tipo);
+            gsa.aceitaSolicitacaoAmizade(remetente, destinatario);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/listarSolicitacoes.jsp");
+            dispatcher.forward(request, response);
         } catch (PersistenciaException | SQLException ex) {
             Logger.getLogger(AceitarAmizade.class.getName()).log(Level.SEVERE, null, ex);
         }

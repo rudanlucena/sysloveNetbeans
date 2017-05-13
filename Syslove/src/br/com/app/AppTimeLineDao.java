@@ -18,7 +18,7 @@ public class AppTimeLineDao {
         FotoGaleria ft = new FotoGaleria("alexa", "imagem.jpg", "topper");
         TimeLineDao DaoTl = new TimeLineDao();
         
-        DaoTl.publica(ft);
+        //DaoTl.publica(ft);
     }
     
 }

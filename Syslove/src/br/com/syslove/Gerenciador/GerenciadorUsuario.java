@@ -79,10 +79,23 @@ public class GerenciadorUsuario {
         usuarioDao.exclui(novoUsuario);
     }
     
-    public List<Usuario> listaUsuario() throws SQLException{
-        List<Usuario> usuarios = new ArrayList<>();
+    public List<Usuario> listaUsuario(String email, String nome) throws SQLException{
+        List<Usuario> usuarios;
         
-        usuarios = usuarioDao.lista();
+        usuarios = usuarioDao.lista(email, nome);
+        if(usuarios.isEmpty())
+            return null;
+        
+        return usuarios;
+    }
+    
+    public List<Usuario> listaAmigos(String email, String nome) throws SQLException{
+        List<Usuario> usuarios;
+        
+        usuarios = usuarioDao.listaAmigos(email, nome);
+        
+        if(usuarios.isEmpty())
+            return null;
         
         return usuarios;
     }

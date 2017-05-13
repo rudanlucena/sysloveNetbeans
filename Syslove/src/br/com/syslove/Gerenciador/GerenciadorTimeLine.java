@@ -7,6 +7,7 @@ import br.com.syslove.Interface.TimeLineDaoSysLove;
 import br.com.syslove.Model.FotoGaleria;
 import br.com.syslove.Model.TimeLine;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -27,14 +28,21 @@ public class GerenciadorTimeLine {
         }
     }
     
-    public void persisteTimeLine(String usuario, String foto, String legenda) throws SQLException{
-        FotoGaleria fotoGaleria = new FotoGaleria();
+    public void persisteTimeLine(String usuario, String imagem, String legenda) throws SQLException{
+        TimeLine post = new TimeLine();
         
-        fotoGaleria.setUsuario(usuario);
-        fotoGaleria.setImagem(legenda);
-        fotoGaleria.setLegenda(legenda);
+        post.setUsuario(usuario);
+        post.setImagem(imagem);
+        post.setLegenda(legenda);
         
-        timeLineDao.publica(fotoGaleria);
+        timeLineDao.publica(post);
+    }
+    
+    public List<TimeLine> lista(String email) throws SQLException{
+        List<TimeLine> posts = timeLineDao.lista(email);
+        if(posts.isEmpty())
+            return null;
+        return posts;
     }
     
 }

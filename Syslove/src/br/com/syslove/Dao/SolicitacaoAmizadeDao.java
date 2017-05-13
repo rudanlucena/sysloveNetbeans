@@ -10,6 +10,7 @@ import br.com.syslove.Conexao.ConnectionFactory;
 import br.com.syslove.Interface.SolicitacaoAmizadeDaoSysLove;
 import br.com.syslove.Model.Relacionamento;
 import br.com.syslove.Model.SolicitacaoAmizade;
+import br.com.syslove.Model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,7 +45,7 @@ public class SolicitacaoAmizadeDao implements SolicitacaoAmizadeDaoSysLove {
     }
 
     @Override
-    public boolean rejeita(SolicitacaoAmizade solicitacao) throws SQLException {
+    public boolean exclui(SolicitacaoAmizade solicitacao) throws SQLException {
         String sql = "DELETE FROM solicitacoesamizade WHERE remetente = ? and destinatario = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -55,35 +56,78 @@ public class SolicitacaoAmizadeDao implements SolicitacaoAmizadeDaoSysLove {
     }
 
     @Override
-    public boolean aceita(Relacionamento relacionamento) throws SQLException {
+    public boolean aceita(SolicitacaoAmizade solicitacao) throws SQLException {
         String sql = "INSERT INTO relacionamentos (usuario1, usuario2, tipoRelacionamento) VALUES (?,?,?)";
         PreparedStatement statement = connection.prepareStatement(sql);
 
-        statement.setString(1, relacionamento.getUsuario1());
-        statement.setString(2, relacionamento.getUsuario2());
-        statement.setString(3, relacionamento.getTipo());
+        statement.setString(1, solicitacao.getRemetente());
+        statement.setString(2, solicitacao.getDestinatario());
+        statement.setString(3, "amigos");
+                        
+        exclui(solicitacao);
 
         return statement.executeUpdate() > 0;
     }
 
     @Override
-    public List<SolicitacaoAmizade> lista() throws SQLException {
-        String sql = "SELECT * FROM solicitacoesamizade";
+    public List<Usuario> lista(String email) throws SQLException{
+        String sql = "SELECT * FROM usuarios u, solicitacoesamizade s where s.destinatario = ? and s.remetente = u.email ";
         PreparedStatement statement = connection.prepareStatement(sql);
+        
+        statement.setString(1, email);
 
         ResultSet rs = statement.executeQuery();
 
-        List<SolicitacaoAmizade> solicitacoes = new ArrayList<>();
+        List<Usuario> usuarios = new ArrayList<>();
 
         while (rs.next()) {
-            SolicitacaoAmizade solicitacao = new SolicitacaoAmizade();
+            Usuario usuario = new Usuario();
 
-            solicitacao.setRemetente(rs.getString(1));
-            solicitacao.setDestinatario(rs.getString(2));
+            usuario.setSenha(rs.getString("senha"));
+            usuario.setNome(rs.getString("nome"));
+            usuario.setApelido(rs.getString("apelido"));
+            usuario.setDataNascimento(rs.getString("dataNascimento"));
+            usuario.setCidade(rs.getString("cidade"));
+            usuario.setEmail(rs.getString("email"));
+            usuario.setProfissao(rs.getString("profissao"));
+            usuario.setDescricao(rs.getString("descricao"));
+            usuario.setStatus(rs.getString("status"));
+            usuario.setPeso(rs.getFloat("peso"));
+            usuario.setAltura(rs.getFloat("altura"));
+            usuario.setCorCabelo(rs.getString("corCabelo"));
+            usuario.setFotoPerfil(rs.getString("fotoPerfil"));
+            usuario.setSexo(rs.getString("sexo"));
 
-            solicitacoes.add(solicitacao);
+            usuarios.add(usuario);
         }
-
-        return solicitacoes;
+        
+        return usuarios;
     }
+    
+    @Override
+    public boolean solicitacaoEnviada(String usuario, String email) throws SQLException {
+        String sql = "SELECT * FROM solicitacoesAmizade where remetente = ? and destinatario = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        
+        statement.setString(1, usuario);
+        statement.setString(2, email);
+        
+        ResultSet rs = statement.executeQuery();
+
+        return rs.next();
+    }
+
+    @Override
+    public boolean solicitacaoRecebida(String usuario, String email) throws SQLException {
+        String sql = "SELECT * FROM solicitacoesAmizade where remetente = ? and destinatario = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        
+        statement.setString(1, email);
+        statement.setString(2, usuario);
+        
+        ResultSet rs = statement.executeQuery();
+
+        return rs.next();
+    }
+
 }

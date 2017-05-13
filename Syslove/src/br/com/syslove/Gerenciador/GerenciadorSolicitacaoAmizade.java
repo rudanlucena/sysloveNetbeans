@@ -6,6 +6,7 @@ import br.com.syslove.Interface.DaoFactorySysLove;
 import br.com.syslove.Interface.SolicitacaoAmizadeDaoSysLove;
 import br.com.syslove.Model.Relacionamento;
 import br.com.syslove.Model.SolicitacaoAmizade;
+import br.com.syslove.Model.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class GerenciadorSolicitacaoAmizade {
         }
     }
     
-    public void solicitaSolicitacaoAmizade(String rementente, String destinatario) throws SQLException{
+    public void solicitaAmizade(String rementente, String destinatario) throws SQLException{
         SolicitacaoAmizade solicitacaoAmizade = new SolicitacaoAmizade();
         
         solicitacaoAmizade.setRemetente(rementente);
@@ -38,14 +39,13 @@ public class GerenciadorSolicitacaoAmizade {
         solicitacaoAmizadeDao.solicita(solicitacaoAmizade);
     }
     
-    public void aceitaSolicitacaoAmizade(String Usuario1, String Usuario2, String tipo) throws SQLException{
-        Relacionamento relacionamento = new Relacionamento();
+    public void aceitaSolicitacaoAmizade(String remetente, String destinatario) throws SQLException{
+        SolicitacaoAmizade solicitacao = new SolicitacaoAmizade();
         
-        relacionamento.setUsuario1(Usuario1);
-        relacionamento.setUsuario2(Usuario2);
-        relacionamento.setTipo(tipo);
-        
-        solicitacaoAmizadeDao.aceita(relacionamento);
+        solicitacao.setRemetente(remetente);
+        solicitacao.setDestinatario(destinatario);
+                
+        solicitacaoAmizadeDao.aceita(solicitacao);
     }
     
     public void rejeitaSolicitacaoAmizade(String remetente, String Destinatario) throws SQLException{
@@ -54,14 +54,23 @@ public class GerenciadorSolicitacaoAmizade {
         solicitacaoAmizade.setDestinatario(Destinatario);
         solicitacaoAmizade.setRemetente(remetente);
         
-        solicitacaoAmizadeDao.rejeita(solicitacaoAmizade);
+        solicitacaoAmizadeDao.exclui(solicitacaoAmizade);
     }
     
-    public List<SolicitacaoAmizade> listaSolicitacaoAmizade() throws SQLException{
-        List<SolicitacaoAmizade> solicitacaoAmizade = new ArrayList<>();
+    public List<Usuario> listaSolicitacaoAmizade(String email) throws SQLException{
+        List<Usuario> usuarios;
         
-        solicitacaoAmizade = solicitacaoAmizadeDao.lista();
+        usuarios = solicitacaoAmizadeDao.lista(email);
+        if(usuarios.isEmpty())
+            return null;
         
-        return solicitacaoAmizade;
+        return usuarios;
+    }
+    
+    public boolean solicitacaoEnviada(String usuario, String email) throws SQLException{
+        return solicitacaoAmizadeDao.solicitacaoEnviada(usuario, email);
+    }
+    public boolean solicitacaoRecebida(String usuario, String email) throws SQLException{
+        return solicitacaoAmizadeDao.solicitacaoRecebida(usuario, email);
     }
 }

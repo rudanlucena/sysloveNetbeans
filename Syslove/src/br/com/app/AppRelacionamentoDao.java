@@ -20,12 +20,12 @@ public class AppRelacionamentoDao {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ConnectionException, ClassNotFoundException, SQLException {
-        Relacionamento r = new Relacionamento("alexa", "rudan", "amigos");
+        //Relacionamento r = new Relacionamento("alexa", "rudan", "amigos");
         RelacionamentoDao daoR = new RelacionamentoDao();
         
-        daoR.novo(r);
+        //daoR.novo(r);
         //daoR.atualiza(r);
-        //System.out.println(daoR.lista());
+        System.out.println(daoR.verificaAmizade("alexa@gmail.com", "rudanlucena@gmail.com"));
         //daoR.desfaz(r);
     }
     

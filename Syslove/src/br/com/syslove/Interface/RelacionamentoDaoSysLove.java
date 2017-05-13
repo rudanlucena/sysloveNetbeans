@@ -10,4 +10,5 @@ public interface RelacionamentoDaoSysLove {
     public boolean atualiza(Relacionamento relacionamento) throws SQLException;
     public boolean desfaz(Relacionamento relacionamento) throws SQLException;
     public List<Relacionamento> lista() throws SQLException;
+    public boolean verificaAmizade(String remetente, String destinatario) throws SQLException;
 }

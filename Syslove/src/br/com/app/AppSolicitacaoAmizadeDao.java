@@ -16,14 +16,14 @@ public class AppSolicitacaoAmizadeDao {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException, ConnectionException, ClassNotFoundException {
-        SolicitacaoAmizade sa = new SolicitacaoAmizade("alexa", "teste");
-        Relacionamento r = new Relacionamento("alexa", "teste", "amigos");
+        //SolicitacaoAmizade sa = new SolicitacaoAmizade("lexa@gmail.com", "rudanlucena@gmail.com");
+        //Relacionamento r = new Relacionamento("alexa", "teste", "amigos");
         SolicitacaoAmizadeDao daoSA = new SolicitacaoAmizadeDao();
-        
-        daoSA.solicita(sa);
+        System.out.println(daoSA.solicitacaoEnviada("lexa@gmail.com", "rudanlucena@gmail.com"));
+        //daoSA.solicita(sa);
         //daoSA.rejeita(sa);
         //daoSA.aceita(r);
-        //System.out.println(daoSA.lista());
+        //System.out.println(daoSA.lista("rudanlucena@gmail.com"));
     }
     
 }

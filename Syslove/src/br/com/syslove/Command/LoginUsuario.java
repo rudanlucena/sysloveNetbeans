@@ -22,6 +22,7 @@ public class LoginUsuario implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter out = response.getWriter();       
         Usuario usuario = null;
+  
         try {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
@@ -34,7 +35,7 @@ public class LoginUsuario implements Command{
                 HttpSession session = request.getSession();
                 session.setAttribute("email", email);
                 session.setAttribute("senha", senha);
-                session.setAttribute("usuario", usuario);                
+                session.setAttribute("usuario", usuario);
                 response.sendRedirect("inicio.jsp");
             }
         } catch (PersistenciaException | SQLException  ex) {
@@ -42,8 +43,6 @@ public class LoginUsuario implements Command{
         }
         if(usuario == null)
             response.sendRedirect("index.jsp");
-        
-        
     }
     
 }

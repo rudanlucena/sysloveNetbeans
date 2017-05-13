@@ -128,9 +128,12 @@ public class UsuarioDao implements UsuarioDaoSysLove {
     }
 
     @Override
-    public List<Usuario> lista() throws SQLException {
-        String sql = "SELECT * FROM usuarios";
+    public List<Usuario> lista(String email, String nome) throws SQLException {
+        String sql = "SELECT * FROM usuarios where email != ? and nome ilike ?";
         PreparedStatement statement = connection.prepareStatement(sql);
+        
+        statement.setString(1, email);
+        statement.setString(2, nome);
 
         ResultSet rs = statement.executeQuery();
 
@@ -138,20 +141,62 @@ public class UsuarioDao implements UsuarioDaoSysLove {
 
         while (rs.next()) {
             Usuario usuario = new Usuario();
-            usuario.setSenha(rs.getString(1));
-            usuario.setNome(rs.getString(2));
-            usuario.setApelido(rs.getString(3));
-            usuario.setDataNascimento(rs.getString(4));
-            usuario.setCidade(rs.getString(5));
-            usuario.setEmail(rs.getString(6));
-            usuario.setProfissao(rs.getString(7));
-            usuario.setDescricao(rs.getString(8));
-            usuario.setStatus(rs.getString(9));
-            usuario.setPeso(rs.getFloat(10));
-            usuario.setAltura(rs.getFloat(11));
-            usuario.setCorCabelo(rs.getString(12));
-            usuario.setFotoPerfil(rs.getString(13));
-            usuario.setSexo(rs.getString(14));
+            usuario.setSenha(rs.getString("senha"));
+            usuario.setNome(rs.getString("nome"));
+            usuario.setApelido(rs.getString("apelido"));
+            usuario.setDataNascimento(rs.getString("dataNascimento"));
+            usuario.setCidade(rs.getString("cidade"));
+            usuario.setEmail(rs.getString("email"));
+            usuario.setProfissao(rs.getString("profissao"));
+            usuario.setDescricao(rs.getString("descricao"));
+            usuario.setStatus(rs.getString("status"));
+            usuario.setPeso(rs.getFloat("peso"));
+            usuario.setAltura(rs.getFloat("altura"));
+            usuario.setCorCabelo(rs.getString("corCabelo"));
+            usuario.setFotoPerfil(rs.getString("fotoPerfil"));
+            usuario.setSexo(rs.getString("sexo"));
+
+            usuarios.add(usuario);
+        }
+        return usuarios;
+    }
+
+    @Override
+    public List<Usuario> listaAmigos(String email, String nome) throws SQLException {
+        String sqlListAll = "SELECT * FROM usuarios u, relacionamentos r order by nome asc where (r.usuario1 = u.email or r.usuario2 = u.email) and (r.usuario1 = ? or r.usuario2 = ?) and u.email != ?";
+        String sqlListName = "SELECT * FROM usuarios u, relacionamentos r order by nome asc where (r.usuario1 = u.email or r.usuario2 = u.email) and (r.usuario1 = ? or r.usuario2 = ?) and u.email != ? and u.nome = ?";
+        PreparedStatement statement;
+        if(nome == null){
+             statement = connection.prepareStatement(sqlListAll);
+        }else{
+             statement = connection.prepareStatement(sqlListName);
+             statement.setString(4, nome);
+        }
+             
+        statement.setString(1, email);
+        statement.setString(2, email);
+        statement.setString(3, email);
+
+        ResultSet rs = statement.executeQuery();
+
+        List<Usuario> usuarios = new ArrayList<>();
+
+        while (rs.next()) {
+            Usuario usuario = new Usuario();
+            usuario.setSenha(rs.getString("senha"));
+            usuario.setNome(rs.getString("nome"));
+            usuario.setApelido(rs.getString("apelido"));
+            usuario.setDataNascimento(rs.getString("dataNascimento"));
+            usuario.setCidade(rs.getString("cidade"));
+            usuario.setEmail(rs.getString("email"));
+            usuario.setProfissao(rs.getString("profissao"));
+            usuario.setDescricao(rs.getString("descricao"));
+            usuario.setStatus(rs.getString("status"));
+            usuario.setPeso(rs.getFloat("peso"));
+            usuario.setAltura(rs.getFloat("altura"));
+            usuario.setCorCabelo(rs.getString("corCabelo"));
+            usuario.setFotoPerfil(rs.getString("fotoPerfil"));
+            usuario.setSexo(rs.getString("sexo"));
 
             usuarios.add(usuario);
         }

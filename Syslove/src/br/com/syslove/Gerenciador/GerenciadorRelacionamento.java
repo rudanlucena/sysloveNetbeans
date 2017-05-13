@@ -65,4 +65,8 @@ public class GerenciadorRelacionamento {
         
         return relacionamentos;
     }
+    
+    public boolean verificaAmizade(String usuario, String email) throws SQLException{
+        return RelacionamentoDao.verificaAmizade(email, usuario);
+    }
 }

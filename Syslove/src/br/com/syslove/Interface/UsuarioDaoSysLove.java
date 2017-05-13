@@ -9,5 +9,6 @@ public interface UsuarioDaoSysLove {
     public Usuario localiza(String email, String senha) throws SQLException;
     public boolean atualiza(Usuario usuario, String identificacao) throws SQLException;
     public boolean exclui(Usuario usuario) throws SQLException;
-    public List<Usuario> lista() throws SQLException;
+    public List<Usuario> lista(String email, String nome) throws SQLException;
+    public List<Usuario> listaAmigos(String email, String nome) throws SQLException;
 }

@@ -24,11 +24,22 @@ public class AppUsuario {
        
        GerenciadorUsuario gu = new GerenciadorUsuario();
         
-       //gu.persisteUsuario("email", "senha", "nome", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
-       gu.atualizaUsuario("emailNovo6", "senha", "nome", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo", "emailNovo");
+       //gu.persisteUsuario("rudan@gmail.com", "hvlk", "rudan", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("tigi@gmail.com", "hvlk", "tigi", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("natan@gmail.com", "hvlk", "natan", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("juan@gmail.com", "hvlk", "juan", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("ricarte@gmail.com", "hvlk", "ricarte", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("alexagmail.com", "hvlk", "alexa", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("alexagmail1.com", "hvlk", "alexa", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("alexagmail2.com", "hvlk", "alexa", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("alexagmail3.com", "hvlk", "alexa", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("alexagmail4.com", "hvlk", "alexa", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("alexagmail5.com", "hvlk", "alexa", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("alexagmail6.com", "hvlk", "alexa", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.atualizaUsuario("emailNovo6", "senha", "nome", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo", "emailNovo");
        //System.out.println(daoU.localiza(u));
        //daoU.atualiza(u);
-       //System.out.println(daoU.lista());
+       System.out.println(gu.listaAmigos("alexagmail.com", ""));
        //daoU.exclui(u);
         
     }
