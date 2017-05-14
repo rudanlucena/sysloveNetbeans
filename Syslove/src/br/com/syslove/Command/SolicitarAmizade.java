@@ -2,7 +2,9 @@ package br.com.syslove.Command;
 
 import br.com.syslove.Exception.PersistenciaException;
 import br.com.syslove.Gerenciador.GerenciadorSolicitacaoAmizade;
+import br.com.syslove.Gerenciador.GerenciadorUsuario;
 import br.com.syslove.Interface.Command;
+import br.com.syslove.Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -29,7 +31,11 @@ public class SolicitarAmizade implements Command {
             GerenciadorSolicitacaoAmizade gsa = new GerenciadorSolicitacaoAmizade();
             gsa.solicitaAmizade(remetente, destinatario);
             
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/listarUsuarios.jsp");
+            GerenciadorUsuario GU = new GerenciadorUsuario();
+            Usuario usuario = GU.busca(destinatario);
+            
+            request.setAttribute("usuario", usuario);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("perfil.jsp");
             dispatcher.forward(request, response);
         } catch (PersistenciaException | SQLException ex) {
             out.println(ex.getMessage());

@@ -10,6 +10,7 @@ import br.com.syslove.Gerenciador.GerenciadorUsuario;
 import br.com.syslove.Interface.Command;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ public class AtualizarFotoPerfil implements Command{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        PrintWriter out = response.getWriter();
         String email = (String) request.getSession().getAttribute("email");
         Part part = request.getPart("fotoPerfil");
         String imagem = "perfil"+getFileName(part);
@@ -49,7 +51,7 @@ public class AtualizarFotoPerfil implements Command{
             response.sendRedirect("inicio.jsp");
             
         } catch (PersistenciaException | SQLException ex) {
-            Logger.getLogger(AtualizarFotoPerfil.class.getName()).log(Level.SEVERE, null, ex);
+            out.println(ex.getMessage());
         }
         
     }

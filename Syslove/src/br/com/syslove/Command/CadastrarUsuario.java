@@ -43,10 +43,7 @@ public class CadastrarUsuario implements Command {
             
             GerenciadorUsuario gu = new GerenciadorUsuario();
             gu.persisteUsuario(email, senha, nome, apelido, dataNascimento, cidade, profissao, descricao, status, peso, altura, corCabelo, fotoperfil, sexo, passaTempo);
-            
-            GerenciadorRelacionamento gr = new GerenciadorRelacionamento();
-            gr.persisteRelacionamento(email, email, "você");
-            
+                        
             File dir = new File( request.getServletContext().getRealPath("img/"+email) );// diretório de upload
          
             //se o diretório não existe ele cria

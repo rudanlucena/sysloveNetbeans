@@ -78,10 +78,10 @@ public class GerenciadorUsuario {
         usuarioDao.exclui(email);
     }
     
-    public List<Usuario> listaUsuario(String email, String nome) throws SQLException{
+    public List<Usuario> listaUsuario(String nome) throws SQLException{
         List<Usuario> usuarios;
         
-        usuarios = usuarioDao.lista(email, nome);
+        usuarios = usuarioDao.lista(nome);
         if(usuarios.isEmpty())
             return null;
         
@@ -97,5 +97,9 @@ public class GerenciadorUsuario {
             return null;
         
         return usuarios;
+    }
+    
+    public Usuario busca(String email) throws SQLException{
+        return usuarioDao.busca(email);
     }
 }

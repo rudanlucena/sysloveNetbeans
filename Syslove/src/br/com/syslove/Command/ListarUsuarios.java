@@ -25,9 +25,10 @@ public class ListarUsuarios implements Command{
         String nome = request.getParameter("nome");
         try {
             GerenciadorUsuario gu = new GerenciadorUsuario();
-            request.getServletContext().setAttribute("usuarios", gu.listaUsuario(email, nome));
+            request.setAttribute("usuarios", gu.listaUsuario(nome));
             
-            response.sendRedirect("listarUsuarios.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("listarUsuarios.jsp");
+            dispatcher.forward(request, response);
         } catch (PersistenciaException ex) {
             out.println("Erro não foi possivel instanciar o GerenciadorUsuario");
         } catch (SQLException ex) {

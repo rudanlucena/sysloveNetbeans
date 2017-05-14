@@ -39,7 +39,8 @@ public class AppUsuario {
        //gu.atualizaUsuario("emailNovo6", "senha", "nome", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo", "emailNovo");
        //System.out.println(daoU.localiza(u));
        //daoU.atualiza(u);
-       System.out.println(gu.listaAmigos("alexagmail.com", ""));
+       //System.out.println(gu.listaAmigos("rudan@gmail.com", ""));
+       //System.out.println(gu.busca("zxczx"));
        //daoU.exclui(u);
         
     }

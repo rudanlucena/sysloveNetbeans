@@ -23,18 +23,8 @@ public class ListarSolicitacoesAmizade implements Command{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        PrintWriter out =response.getWriter();
-        String email = (String) request.getSession().getAttribute("email");
-        try {
-            GerenciadorSolicitacaoAmizade gs = new GerenciadorSolicitacaoAmizade();
-            List<Usuario> usuarios = gs.listaSolicitacaoAmizade(email);
-            request.getServletContext().setAttribute("solicitacoes", usuarios);
-            
-            response.sendRedirect("listarSolicitacoes.jsp");
-        } catch (PersistenciaException | SQLException ex) {
-            out.println(ex.getMessage());
-        }
-        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("listarSolicitacoes.jsp");
+        dispatcher.forward(request, response);
     }
     
 }

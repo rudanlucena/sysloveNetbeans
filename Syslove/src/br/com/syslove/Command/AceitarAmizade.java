@@ -4,6 +4,7 @@ import br.com.syslove.Exception.PersistenciaException;
 import br.com.syslove.Gerenciador.GerenciadorSolicitacaoAmizade;
 import br.com.syslove.Interface.Command;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ public class AceitarAmizade implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
+        PrintWriter out = response.getWriter();
         try {
             String destinatario = (String) request.getSession().getAttribute("email");
             String remetente = request.getParameter("remetente");
@@ -30,7 +31,7 @@ public class AceitarAmizade implements Command {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/listarSolicitacoes.jsp");
             dispatcher.forward(request, response);
         } catch (PersistenciaException | SQLException ex) {
-            Logger.getLogger(AceitarAmizade.class.getName()).log(Level.SEVERE, null, ex);
+            out.println(ex.getMessage());
         }
 
     }

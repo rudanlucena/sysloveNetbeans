@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,8 +36,9 @@ public class ListarAmigos implements Command{
         try {
             GerenciadorUsuario gu = new GerenciadorUsuario();
             List<Usuario> usuarios = gu.listaAmigos(email, searchNome);
-            request.getServletContext().setAttribute("amigos", usuarios);
-            response.sendRedirect("listarAmigos.jsp");
+            request.setAttribute("amigos", usuarios);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("listarAmigos.jsp");
+            dispatcher.forward(request, response);
         } catch (PersistenciaException | SQLException ex) {
             out.println(ex.getMessage());
         }
