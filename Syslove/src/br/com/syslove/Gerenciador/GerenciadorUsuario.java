@@ -48,7 +48,7 @@ public class GerenciadorUsuario {
         return usuarioDao.localiza(email, senha);
     }
     
-    public Usuario atualizaUsuario(String email, String senha, String nome, String apelido, String dataNascimento, String cidade, String profissao, String descricao, String status, double peso, double altura, String corCabelo, String sexo, String passaTempo, String identificacao) throws PersistenciaException, SQLException{        
+    public Usuario atualizaUsuario(String email, String senha, String nome, String apelido, String dataNascimento, String cidade, String profissao, String descricao, String status, double peso, double altura, String corCabelo, String sexo, String passaTempo, String identificacao, String fotoPerfil) throws PersistenciaException, SQLException{        
         Usuario novoUsuario = new Usuario();
         novoUsuario.setEmail(email);
         novoUsuario.setSenha(senha);
@@ -64,6 +64,7 @@ public class GerenciadorUsuario {
         novoUsuario.setCorCabelo(corCabelo);
         novoUsuario.setSexo(sexo);
         novoUsuario.setPassaTempo(passaTempo);
+        novoUsuario.setFotoPerfil(fotoPerfil);
         if(usuarioDao.atualiza(novoUsuario, identificacao))
             return novoUsuario;
         else
@@ -78,10 +79,16 @@ public class GerenciadorUsuario {
         usuarioDao.exclui(email);
     }
     
-    public List<Usuario> listaUsuario(String nome) throws SQLException{
+    public List<Usuario> listaUsuario(String nome, String cidade, String sexo) throws SQLException{
+        if(nome.equals(""))
+            nome = null;
+        if(cidade.equals(""))
+            cidade = null;
+        if(sexo.equals(""))
+            sexo = null;
         List<Usuario> usuarios;
         
-        usuarios = usuarioDao.lista(nome);
+        usuarios = usuarioDao.lista(nome, cidade, sexo);
         if(usuarios.isEmpty())
             return null;
         

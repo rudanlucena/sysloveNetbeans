@@ -19,7 +19,7 @@ public class AppRecomendacaoAmizadeDao {
         RecomendacaoAmizadeDao daoRA = new RecomendacaoAmizadeDao();
         
         daoRA.recomenda(ra);
-        System.out.println(daoRA.lista());
+        //System.out.println(daoRA.lista());
     }
     
 }

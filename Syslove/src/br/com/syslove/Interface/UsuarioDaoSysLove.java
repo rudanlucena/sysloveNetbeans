@@ -11,6 +11,6 @@ public interface UsuarioDaoSysLove {
     public boolean atualiza(Usuario usuario, String identificacao) throws SQLException;
     public boolean atualizaFotoPerfil(String email, String imagem) throws SQLException;
     public boolean exclui(String email) throws SQLException;
-    public List<Usuario> lista(String nome) throws SQLException;
+    public List<Usuario> lista(String nome, String cidade, String sexo) throws SQLException;
     public List<Usuario> listaAmigos(String email, String nome) throws SQLException;
 }

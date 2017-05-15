@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface RecomendacaoAmizadeDaoSysLove {
     public boolean recomenda(RecomendacaoAmizade recomendacao)throws SQLException;
-    public List<RecomendacaoAmizade> lista() throws SQLException;
+    public List<Usuario> lista(String email) throws SQLException;
 }

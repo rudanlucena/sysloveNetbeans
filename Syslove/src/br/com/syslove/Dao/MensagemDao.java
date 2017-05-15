@@ -12,7 +12,10 @@ import br.com.syslove.Model.Mensagem;
 import br.com.syslove.Model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,5 +42,38 @@ public class MensagemDao implements MensagemDaoSysLove {
         statement.setString(3, mensagem.getMensagem());
 
         return statement.executeUpdate() > 0;
+    }
+
+    @Override
+    public List<Usuario> listarNovas(String email) throws SQLException {
+        String sql = "SELECT * from mensagens m, usuarios u where m.remetente = u.email and m.destinatario = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, email);
+        List<Usuario> usuarios = new ArrayList<>();
+        
+        ResultSet rs = statement.executeQuery();
+        
+        while(rs.next()){
+            Usuario usuario = new Usuario();
+            usuario.setSenha(rs.getString("senha"));
+            usuario.setNome(rs.getString("nome"));
+            usuario.setApelido(rs.getString("apelido"));
+            usuario.setDataNascimento(rs.getString("dataNascimento"));
+            usuario.setCidade(rs.getString("cidade"));
+            usuario.setEmail(rs.getString("email"));
+            usuario.setProfissao(rs.getString("profissao"));
+            usuario.setDescricao(rs.getString("descricao"));
+            usuario.setStatus(rs.getString("status"));
+            usuario.setPeso(rs.getFloat("peso"));
+            usuario.setAltura(rs.getFloat("altura"));
+            usuario.setCorCabelo(rs.getString("corCabelo"));
+            usuario.setFotoPerfil(rs.getString("fotoPerfil"));
+            usuario.setSexo(rs.getString("sexo"));
+            usuarios.add(usuario);
+        }
+        
+        return usuarios;
+        
     }
 }

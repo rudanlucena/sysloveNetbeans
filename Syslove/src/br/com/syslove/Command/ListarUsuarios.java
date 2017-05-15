@@ -21,12 +21,16 @@ public class ListarUsuarios implements Command{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter out = response.getWriter();
-        String email = (String) request.getSession().getAttribute("email");
         String nome = request.getParameter("nome");
+        String cidade = request.getParameter("cidade");
+        String sexo = request.getParameter("sexo");
+     
         try {
             GerenciadorUsuario gu = new GerenciadorUsuario();
-            request.setAttribute("usuarios", gu.listaUsuario(nome));
-            
+            request.setAttribute("usuarios", gu.listaUsuario(nome, cidade, sexo));
+            request.setAttribute("searchNome", nome);
+            request.setAttribute("searchCidade", cidade);
+            request.setAttribute("searchSexo", sexo);
             RequestDispatcher dispatcher = request.getRequestDispatcher("listarUsuarios.jsp");
             dispatcher.forward(request, response);
         } catch (PersistenciaException ex) {

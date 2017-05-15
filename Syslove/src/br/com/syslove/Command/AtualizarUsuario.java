@@ -21,6 +21,8 @@ public class AtualizarUsuario implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String identificacao = (String) request.getSession().getAttribute("email");
+        Usuario usuarioOLD = (Usuario) request.getSession().getAttribute("usuario");
+        String fotoPerfil = usuarioOLD.getFotoPerfil();
         HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
         try {
@@ -40,7 +42,7 @@ public class AtualizarUsuario implements Command {
             String passaTempo = request.getParameter("passaTempo");
 
             GerenciadorUsuario gu = new GerenciadorUsuario();
-            Usuario usuario = gu.atualizaUsuario(email, senha, nome, apelido, dataNascimento, cidade, profissao, descricao, status, peso, altura, corCabelo, sexo, passaTempo, identificacao);
+            Usuario usuario = gu.atualizaUsuario(email, senha, nome, apelido, dataNascimento, cidade, profissao, descricao, status, peso, altura, corCabelo, sexo, passaTempo, identificacao, fotoPerfil);
             if(usuario!=null){
                 session.setAttribute("email", email);
                 session.setAttribute("senha", senha);

@@ -5,6 +5,7 @@ import br.com.syslove.Factory.DaoFactory;
 import br.com.syslove.Interface.DaoFactorySysLove;
 import br.com.syslove.Interface.RecomendacaoAmizadeDaoSysLove;
 import br.com.syslove.Model.RecomendacaoAmizade;
+import br.com.syslove.Model.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +39,13 @@ public class GerenciadorRecomendacaoAmizade {
         recomendacaoAmizadeDao.recomenda(recomendacaoAmizade);
     }
     
-    public List<RecomendacaoAmizade> listaRecomendaAmizade() throws SQLException{
-        List<RecomendacaoAmizade> amizades = new ArrayList<>();
+    public List<Usuario> listaRecomendaAmizade(String email) throws SQLException{
+        List<Usuario> usuarios = new ArrayList<>();
         
-        amizades = recomendacaoAmizadeDao.lista();
+        usuarios = recomendacaoAmizadeDao.lista(email);
+        if(usuarios.isEmpty())
+            return null;
         
-        return amizades;
+        return usuarios;
     }
 }

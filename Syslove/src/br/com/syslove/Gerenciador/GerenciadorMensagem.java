@@ -5,7 +5,9 @@ import br.com.syslove.Factory.DaoFactory;
 import br.com.syslove.Interface.DaoFactorySysLove;
 import br.com.syslove.Interface.MensagemDaoSysLove;
 import br.com.syslove.Model.Mensagem;
+import br.com.syslove.Model.Usuario;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -34,5 +36,13 @@ public class GerenciadorMensagem {
         mensagem.setMensagem(texto);
         
         mensagemDao.envia(mensagem);
+    }
+    
+    public List<Usuario> listarNovas(String email) throws SQLException{
+        List<Usuario> usuarios = mensagemDao.listarNovas(email);
+        
+        if(usuarios.isEmpty())
+            return null;
+        return usuarios;
     }
 }

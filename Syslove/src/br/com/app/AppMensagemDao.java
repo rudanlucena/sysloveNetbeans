@@ -15,10 +15,11 @@ public class AppMensagemDao {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ConnectionException, ClassNotFoundException, SQLException {
-        Mensagem m = new Mensagem("alexa", "rudan", "oi, amiguinho");
+        Mensagem m = new Mensagem("rudan@gmail.com", "alexa@gmail.com", "oi");
         MensagemDao daoM = new MensagemDao();
         
-        daoM.envia(m);
+        //daoM.envia(m);
+        System.out.println(daoM.listarNovas("alexa@gmail.com"));
     }
     
 }

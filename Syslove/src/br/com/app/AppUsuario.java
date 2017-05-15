@@ -24,7 +24,7 @@ public class AppUsuario {
        
        GerenciadorUsuario gu = new GerenciadorUsuario();
         
-       //gu.persisteUsuario("rudan@gmail.com", "hvlk", "rudan", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
+       //gu.persisteUsuario("rudan@gmail.com", "hvlk", "rudan", "apelido", "data", "mauriti", "profissao", "descricao", "solteiro", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
        //gu.persisteUsuario("tigi@gmail.com", "hvlk", "tigi", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
        //gu.persisteUsuario("natan@gmail.com", "hvlk", "natan", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
        //gu.persisteUsuario("juan@gmail.com", "hvlk", "juan", "apelido", "data", "cidade", "profissao", "descricao", "status", 0, 0, "corCabelo", "fotoPerfil", "sexo", "passaTempo");
@@ -42,6 +42,7 @@ public class AppUsuario {
        //System.out.println(gu.listaAmigos("rudan@gmail.com", ""));
        //System.out.println(gu.busca("zxczx"));
        //daoU.exclui(u);
+       System.out.println(gu.listaUsuario("rudan lucena", null, null));
         
     }
     

@@ -6,8 +6,9 @@
 package br.com.syslove.Command;
 
 import br.com.syslove.Exception.PersistenciaException;
-import br.com.syslove.Gerenciador.GerenciadorUsuario;
+import br.com.syslove.Gerenciador.GerenciadorTimeLine;
 import br.com.syslove.Interface.Command;
+import br.com.syslove.Model.TimeLine;
 import br.com.syslove.Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,29 +21,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author rudan
- */
-public class ListarAmigos implements Command{
+public class ListarFotos implements Command{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter out = response.getWriter();
-        String email = (String) request.getSession().getAttribute("email");
-        String searchNome = (String) request.getParameter("nome");
-        out.println(searchNome);
+        String email = request.getParameter("email");
         
         try {
-            GerenciadorUsuario gu = new GerenciadorUsuario();
-            List<Usuario> usuarios = gu.listaAmigos(email, searchNome);
-            request.setAttribute("amigos", usuarios);
-            request.setAttribute("searchNome", searchNome);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("listarAmigos.jsp");
+            GerenciadorTimeLine GTL = new GerenciadorTimeLine();
+            List<TimeLine> posts = GTL.lista(email);
+            request.setAttribute("posts", posts);
+            request.setAttribute("email",email);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("listarFotos.jsp");
             dispatcher.forward(request, response);
         } catch (PersistenciaException | SQLException ex) {
             out.println(ex.getMessage());
         }
+        
     }
     
 }

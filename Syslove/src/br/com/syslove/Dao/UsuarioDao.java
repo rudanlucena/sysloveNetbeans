@@ -138,11 +138,54 @@ public class UsuarioDao implements UsuarioDaoSysLove {
     }
 
     @Override
-    public List<Usuario> lista(String nome) throws SQLException {
-        String sql = "SELECT * FROM usuarios where nome ilike ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+    public List<Usuario> lista(String nome, String cidade, String sexo) throws SQLException {
+        String SQLEmpty = "SELECT * FROM usuarios";
+        String SQLNomeCidadeSexo = "SELECT * FROM usuarios where nome ilike ? and cidade = ? and sexo = ?";
+        String SQLNome= "SELECT * FROM usuarios where nome ilike ?";
+        String SQLCidade= "SELECT * FROM usuarios where cidade ilike ?";
+        String SQLSexo= "SELECT * FROM usuarios where sexo = ?";
+        String SQLNomeCidade = "SELECT * FROM usuarios where nome ilike ? and cidade = ?";
+        String SQLNomeSexo = "SELECT * FROM usuarios where nome ilike ? and sexo = ?";
+        String SQLCidadesexo = "SELECT * FROM usuarios where cidade ilike ? and sexo = ?";
         
-        statement.setString(1, nome);
+        PreparedStatement statement = connection.prepareStatement(SQLEmpty);
+        
+        if((nome == null) && (cidade == null) && (sexo == null)){
+            statement = connection.prepareStatement(SQLEmpty);
+        }else if((nome != null) && (cidade != null) && (sexo != null)){
+            statement = connection.prepareStatement(SQLNomeCidadeSexo);
+            statement.setString(1, nome);
+            statement.setString(2, cidade);
+            statement.setString(3, sexo);
+        }else{
+            if((nome != null) && (cidade == null) && (sexo == null)){
+                statement = connection.prepareStatement(SQLNome);
+                statement.setString(1, nome);
+            }
+            else if((cidade != null) && (nome == null) && (sexo== null)){
+                statement = connection.prepareStatement(SQLCidade);
+                statement.setString(1, cidade);
+            }
+            else if((sexo != null) && (nome == null) && (cidade == null)){
+                statement = connection.prepareStatement(SQLSexo);
+                statement.setString(1, sexo);
+            }
+            else if((nome != null) && (cidade != null) && (sexo == null)){
+                statement = connection.prepareStatement(SQLNomeCidade);
+                statement.setString(1, nome);
+                statement.setString(2, cidade);
+            }
+            else if((nome != null) && (sexo != null) && (cidade == null)){
+                statement = connection.prepareStatement(SQLNomeSexo);
+                statement.setString(1, nome);
+                statement.setString(2, sexo);
+            }
+            else if((cidade != null) && (sexo != null) && (nome == null)){
+                statement = connection.prepareStatement(SQLCidadesexo);
+                statement.setString(1, cidade);
+                statement.setString(2, sexo);
+            }
+        }
         
         ResultSet rs = statement.executeQuery();
 
